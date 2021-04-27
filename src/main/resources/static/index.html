@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello WebSocket</title>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/main.css" rel="stylesheet">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/app.js"></script>
+</head>
+<body>
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+    enabled. Please enable
+    Javascript and reload this page!</h2></noscript>
+<div class="content-wrapper">
+    <div id="conversation-content" class="conversation-container">
+        <div class="table-container">
+            <div class="col-md-8">
+                <table id="conversation" class="table table-striped table-conversation">
+                    <tbody id="messages"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="user-container">
+            <div class="col-md-4">
+                <table id="users" class="table table-striped table-users">
+                    <thead>
+                    <tr>
+                        <th>Users</th>
+                    </tr>
+                    </thead>
+                </table>
+                <div id="connection">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <input type="text" id="name" class="form-control" placeholder="Your name here...">
+                        </div>
+                        <button id="connect" class="btn btn-default" type="submit">Connect</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="send-content" class="send-container col-md-8 button-send">
+        <form class="form-inline">
+            <div class="form-group input-form-container">
+                <input type="text" id="message" class="form-control input-form" placeholder="Your message here...">
+                <button id="sendMessage" class="btn btn-default btn-send" type="submit">Send</button>
+            </div>
+        </form>
+        <div class="col-md-4 right-padding"></div>
+    </div>
+</div>
+</body>
+</html>

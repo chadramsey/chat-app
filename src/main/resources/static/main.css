@@ -1,0 +1,45 @@
+.content-wrapper {
+  width: 95%;
+  padding-top: 35px;
+  margin: auto;
+}
+
+.conversation-container {
+  height:700px;
+  overflow:auto;
+  overflow-x:hidden;
+}
+.user-container {
+  padding-top: 15px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+table.table-users td {
+  padding-top: 10px;
+}
+
+.input-form-container {
+  padding-top: 15px;
+  padding-bottom: 20px;
+  min-width: 100%;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.input-form {
+  min-width: 88%;
+  max-width: 88%;
+  width: 88%;
+  box-sizing: border-box;
+}
+
+.btn-send {
+  min-width: 8%;
+  max-width: 8%;
+  width: 8%;
+  box-sizing: border-box;
+}
