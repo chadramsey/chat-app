@@ -62,12 +62,18 @@ function showMessage(message) {
 }
 
 function updateUsers(users) {
-    var table = document.getElementById("users");
-    while (table.rows.length > 1) {
-      table.deleteRow(1);
-    }
+    var userTable = document.getElementById("users");
+    clearTableRows(userTable);
     for (key in users) {
-        $("#users").append("<tr><td><b>" + users[key] + "</b></td></tr>");
+        if (userTable.rows.length <= 20) {
+            $("#users").append("<tr><td><b>" + users[key] + "</b></td></tr>");
+        }
+    }
+}
+
+function clearTableRows(userTable) {
+    while (userTable.rows.length > 1) {
+      userTable.deleteRow(1);
     }
 }
 
