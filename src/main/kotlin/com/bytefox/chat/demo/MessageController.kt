@@ -7,9 +7,12 @@ import org.springframework.web.util.HtmlUtils
 
 @Controller
 class MessageController {
-    private final val secretCode = listOf("One", "Two", "Three").random()
+    final val secretCode = listOf("One", "Two", "Three", "Four", "Five").random()
 
     private var currentUsers = ArrayList<String>()
+
+    var winnerFound: Boolean = false
+    lateinit var winner: String
 
     @MessageMapping("/inbound")
     @SendTo("/topic/chat")
@@ -22,12 +25,20 @@ class MessageController {
                 return OutboundMessage("${inboundMessage.name} disconnected. Boo.")
             }
         }
-        if (inboundMessage.message == secretCode) {
-            return OutboundMessage("${HtmlUtils.htmlEscape(inboundMessage.name)} :" +
-                    " ${HtmlUtils.htmlEscape(inboundMessage.message)} - [You guessed the secret!]")
+        if (inboundMessage.message.equals(secretCode, ignoreCase = true)) {
+            if (!winnerFound) {
+                winnerFound = true
+                winner = inboundMessage.name
+            }
+            return OutboundMessage(
+                "${HtmlUtils.htmlEscape(inboundMessage.name)} :" +
+                        " ${HtmlUtils.htmlEscape(inboundMessage.message)} - [You guessed the secret!]"
+            )
         }
-        return OutboundMessage("${HtmlUtils.htmlEscape(inboundMessage.name)} " +
-                ": ${HtmlUtils.htmlEscape(inboundMessage.message)} - [This is not the secret]")
+        return OutboundMessage(
+            "${HtmlUtils.htmlEscape(inboundMessage.name)} " +
+                    ": ${HtmlUtils.htmlEscape(inboundMessage.message)}"
+        )
     }
 
     @MessageMapping("/users/connect")

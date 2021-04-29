@@ -27,18 +27,18 @@ function connect(user) {
         stompClient.subscribe('/topic/currentUsers', function (outbound) {
             updateUsers(JSON.parse(outbound.body).outboundUsers);
         });
-        stompClient.send("/app/users/connect", {},
+        stompClient.send("/users/connect", {},
             JSON.stringify({'name': $("#name").val()}));
-        stompClient.send("/app/inbound", {},
-            JSON.stringify({'name': $("#name").val(), 'message': $("#message").val(), 'connected': 'true'}));
+        stompClient.send("/inbound", {},
+            JSON.stringify({'name': $("#name").val(), 'message': $("#message").val()}));
     });
     $("#connection").hide();
 }
 
 function disconnect() {
-    stompClient.send("/app/users/disconnect", {},
+    stompClient.send("/users/disconnect", {},
         JSON.stringify({'name': $("#name").val()}));
-    stompClient.send("/app/inbound", {},
+    stompClient.send("/inbound", {},
         JSON.stringify({'name': $("#name").val(), 'message': $("#message").val(), 'connected': 'false'}));
     if (stompClient !== null) {
         stompClient.disconnect();
@@ -49,8 +49,8 @@ function disconnect() {
 
 function sendMessage() {
     if ($("#message").val() != "") {
-        stompClient.send("/app/inbound", {},
-            JSON.stringify({'name': $("#name").val(), 'message': $("#message").val(), 'connected': 'true'}));
+        stompClient.send("/inbound", {},
+            JSON.stringify({'name': $("#name").val(), 'message': $("#message").val()}));
         $("#message").val('');
     }
 }
@@ -62,11 +62,15 @@ function showMessage(message) {
 }
 
 function updateUsers(users) {
+    var maxDisplay = 18;
     var userTable = document.getElementById("users");
     clearTableRows(userTable);
     for (key in users) {
-        if (userTable.rows.length <= 20) {
-            $("#users").append("<tr><td><b>" + users[key] + "</b></td></tr>");
+        if (key < maxDisplay) {
+            $("#users").prepend("<tr><td><b>" + users[key] + "</b></td></tr>");
+        } else {
+            $("#users").append("<tr><td><b> +" + (users.length - maxDisplay) + "</b></td></tr>");
+            break;
         }
     }
 }

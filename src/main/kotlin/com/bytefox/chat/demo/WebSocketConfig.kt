@@ -14,13 +14,7 @@ import java.lang.Exception
 @Configuration
 @EnableWebSocketMessageBroker
 class WebSocketConfig : WebSocketMessageBrokerConfigurer {
-
-    override fun configureMessageBroker(config: MessageBrokerRegistry) {
-        config.enableSimpleBroker("/topic")
-        config.setApplicationDestinationPrefixes("/app")
-    }
-
     override fun registerStompEndpoints(registry: StompEndpointRegistry) {
-        registry.addEndpoint("/websocket-server").withSockJS().setInterceptors()
+        registry.addEndpoint("/websocket-server").withSockJS()
     }
 }
