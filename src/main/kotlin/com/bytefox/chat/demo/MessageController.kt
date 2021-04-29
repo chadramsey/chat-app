@@ -25,11 +25,8 @@ class MessageController {
                 return OutboundMessage("${inboundMessage.name} disconnected. Boo.")
             }
         }
-        if (inboundMessage.message.equals(secretCode, ignoreCase = true)) {
-            if (!winnerFound) {
-                winnerFound = true
-                winner = inboundMessage.name
-            }
+        if (inboundMessage.message.equals(secretCode, ignoreCase = true) && !winnerFound) {
+            setWinnerValues(inboundMessage)
             return OutboundMessage(
                 "${HtmlUtils.htmlEscape(inboundMessage.name)} :" +
                         " ${HtmlUtils.htmlEscape(inboundMessage.message)} - [You guessed the secret!]"
@@ -39,6 +36,11 @@ class MessageController {
             "${HtmlUtils.htmlEscape(inboundMessage.name)} " +
                     ": ${HtmlUtils.htmlEscape(inboundMessage.message)}"
         )
+    }
+
+    private fun setWinnerValues(inboundMessage: InboundMessage) {
+        winnerFound = true
+        winner = inboundMessage.name
     }
 
     @MessageMapping("/users/connect")

@@ -17,10 +17,10 @@ class InfoController {
 
     @GetMapping("/winner")
     fun getWinner(): String {
-        if (messageController.winnerFound) {
-            return "The winner is ${messageController.winner}"
+        return if (messageController.winnerFound) {
+            "The winner is ${messageController.winner}"
         } else {
-            return "No winner has been found, keep trying!"
+            "No winner has been found, keep trying!"
         }
     }
 }
