@@ -1,2 +1,2 @@
 # chat-app
-A simple WebSocket-based chat application written in Kotlin
+A WebSocket-based chat application written in Kotlin
